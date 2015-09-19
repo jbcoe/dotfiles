@@ -120,7 +120,7 @@ nmap <silent> ,ww gq}
 " Clang-format runs with ctrl-k
 "
 map <C-K> :ClangFormat<CR>
-imap <C-K> :ClangFormat<CR>
+imap <C-K> <ESC>:ClangFormat<CR>i
 
 "
 " YouCompleteMe: Get-type and Go-to-definition 
