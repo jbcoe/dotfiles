@@ -37,9 +37,6 @@ source $ARCANIST_PATH/resources/shell/bash-completion
 # git branch name and status in prompt
 export PS1='\w$ '
 prompt_git() {
-  if [ "`pwd`" == "$HOME" ]; then
-    return 
-  fi
   git branch &>/dev/null || return 1
   HEAD="$(git symbolic-ref HEAD 2>/dev/null)"
   BRANCH="${HEAD##*/}"
