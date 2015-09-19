@@ -8,6 +8,7 @@ Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
+Plugin 'rhysd/vim-clang-format'
 "Plugin 'bling/vim-bufferline'
 call vundle#end()
 filetype plugin indent on
@@ -118,8 +119,8 @@ nmap <silent> ,ww gq}
 "
 " Clang-format runs with ctrl-k
 "
-map <C-K> :pyf /Users/jon/DEV/clang-format.py<CR>
-imap <C-K> <ESC>:pyf /Users/jon/DEV/clang-format.py<CR>i
+map <C-K> :ClangFormat<CR>
+imap <C-K> :ClangFormat<CR>
 
 "
 " YouCompleteMe: Get-type and Go-to-definition 
