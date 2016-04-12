@@ -3,23 +3,17 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+"Plugin 'godlygeek/tabular'
+"Plugin 'plasticboy/vim-markdown'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'airblade/vim-gitgutter'
+"Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
-Plugin 'rhysd/vim-clang-format'
 "Plugin 'bling/vim-bufferline'
 call vundle#end()
 filetype plugin indent on
 "End Vundle related
-
-" 
-" Plugin settings
-"
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_auto_trigger = 0
-
 
 "
 " General vim settings
@@ -37,6 +31,10 @@ set showmode
 set autoindent
 set smartindent
 set number
+set foldmethod=syntax
+set nofoldenable
+
+let mapleader = ","
 
 " Set the search scan to wrap around the file
 set wrapscan
@@ -48,7 +46,9 @@ set vb
 set backspace=2
 
 " Get rid of annoying preview pane when completions are offered
-set completeopt-=preview
+" set completeopt-=preview
+set completeopt=menu,menuone
+" set completeopt=preview
 
 if !&diff
   colorscheme jellybeans
@@ -91,43 +91,58 @@ set synmaxcol=2048
 " Shortcuts for buffers, navigation etc
 "
 
-" edit vim config file
-nmap <silent> ,ev :e ~/.vimrc<cr>
-
-" source vim config file
-nmap <silent> ,sv :so ~/.vimrc<cr>
-
 " Switch, close and list buffers
 nmap <silent> > : bn<cr>
 nmap <silent> < : bp<cr>
 nmap <silent> Q : bd<cr>
 nmap <silent> ? : ls<cr>
 
+" edit vim config file
+nmap <silent> <Leader>ev :e ~/.vimrc<cr>
+
+" source vim config file
+nmap <silent> <Leader>sv :so ~/.vimrc<cr>
+
 " Toggle highlight search
-nmap <silent> ,h :set invhls<cr>:set hls?<cr>
+nmap <silent> <Leader>h :set invhls<cr>:set hls?<cr>
 
 " Toggle line numbers
-map <silent> ,ln :set number!<cr>
+map <silent> <Leader>ln :set number!<cr>
 
 " Toggle visible whitespace
-map <silent> ,ss :set list!<cr>
+map <silent> <Leader>ss :set list!<cr>
+
+" Fix trailing whitespace
+map <silent> <Leader>sf :%s/\s*$//<cr>
 
 " Wrap paragraph
-nmap <silent> ,ww gq}
-
+nmap <silent> <Leader>ww gq}
 
 "
 " Clang-format runs with ctrl-k
 "
-map <C-K> :ClangFormat<CR>
-imap <C-K> <ESC>:ClangFormat<CR>i
+map <C-K> :pyf /usr/local/Cellar/clang-format/2015-07-31/share/clang/clang-format.py<cr>
+imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2015-07-31/share/clang/clang-format.py<cr>
 
 "
-" YouCompleteMe: Get-type and Go-to-definition 
+" YouCompleteMe: Get-type and Go-to-definition
 " (ctrl-o returns to previous jump-point in vim)
 "
-map <C-Y> :YcmCompleter GetType<cr>
-imap <C-Y> <ESC>:YcmCompleter GetType<cr>
-map <C-G> :YcmCompleter GoTo<cr>
-imap <C-G> <ESC>:YcmCompleter GoTo<cr>
+map <silent> <C-Y> :YcmCompleter GetType<cr>
+map <silent> <C-G> :YcmCompleter GoTo<cr>
+map <silent> <C-F> :YcmCompleter FixIt<cr>
+map <silent> <C-J> :YcmForceCompileAndDiagnostics<cr>
+map <silent> <C-H> :YcmCompleter GoToInclude<cr>
+
+"let g:ycm_confirm_extra_conf = 0
+let g:ycm_auto_trigger = 1
+let g:ycm_path_to_python_interpreter="/usr/local/bin/python"
+let g:ycm_seed_identifiers_with_syntax = 1 "auto-complete on language syntax
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_extra_conf_globlist = ['~/DEV/*','!*']
+
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_add_preview_to_completeopt = 1
 
