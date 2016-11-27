@@ -10,6 +10,7 @@ Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
 "Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tell-k/vim-autopep8'
 "Plugin 'bling/vim-bufferline'
 call vundle#end()
 filetype plugin indent on
@@ -18,7 +19,7 @@ filetype plugin indent on
 "
 " General vim settings
 "
-
+set cursorline 
 set nocompatible
 syntax on
 set history=500
@@ -66,10 +67,8 @@ set hidden
 "Add dollar sign to end of replacement region
 set cpoptions+=$
 
+"Allow cursor navigation to non-existent positions
 set virtualedit=all
-
-" Set the status line the way i like it
-"" set stl=%f\ %m\ %r\ Line:%l/%L\ Col:%c\ Buf:%n\ Offset:%o\ [%b][0x%B]
 
 " tell VIM to always put a status line in, even if there is only one window
 set laststatus=2
@@ -121,8 +120,18 @@ nmap <silent> <Leader>ww gq}
 "
 " Clang-format runs with ctrl-k
 "
-map <C-K> :pyf /usr/local/Cellar/clang-format/2015-07-31/share/clang/clang-format.py<cr>
-imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2015-07-31/share/clang/clang-format.py<cr>
+autocmd Filetype cpp map <C-K> :pyf /usr/local/Cellar/llvm/3.9.0/share/clang/clang-format.py<cr>
+autocmd Filetype cpp imap <C-K> <c-o>:pyf /usr/local/Cellar/llvm/3.9.0/share/clang/clang-format.py<cr>
+
+autocmd Filetype python map <C-K> :call Autopep8()<cr>
+autocmd Filetype python imap <C-K> <c-o>:call Autopep8()<cr>
+
+let g:clang_include_fixer_path="/Users/jon/DEV/LLVM/release-ninja/bin/clang-include-fixer"
+noremap <Leader>ci :pyf /Users/jon/DEV/LLVM/src/tools/clang/tools/extra/include-fixer/tool/clang-include-fixer.py<cr>
+
+" This is unusably slow right now
+let g:clang_rename_path="/Users/jon/DEV/LLVM/release-ninja/bin/clang-rename"
+noremap <Leader>cr :pyf /Users/jon/DEV/LLVM/src/tools/clang/tools/extra/clang-rename/tool/clang-rename.py<cr>
 
 "
 " YouCompleteMe: Get-type and Go-to-definition
@@ -146,3 +155,4 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_add_preview_to_completeopt = 1
 
+let g:autopep8_disable_show_diff=1
