@@ -8,7 +8,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
 Plugin 'Valloric/YouCompleteMe'
-"Plugin 'airblade/vim-gitgutter'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tell-k/vim-autopep8'
 "Plugin 'bling/vim-bufferline'
@@ -120,11 +120,12 @@ nmap <silent> <Leader>ww gq}
 "
 " Clang-format runs with ctrl-k
 "
-autocmd Filetype cpp map <C-K> :pyf /usr/local/Cellar/llvm/3.9.0/share/clang/clang-format.py<cr>
-autocmd Filetype cpp imap <C-K> <c-o>:pyf /usr/local/Cellar/llvm/3.9.0/share/clang/clang-format.py<cr>
+autocmd Filetype cpp map <C-K> :pyf /usr/local/Cellar/llvm/5.0.0/share/clang/clang-format.py<cr>
+autocmd Filetype cpp imap <C-K> <c-o>:pyf /usr/local/Cellar/llvm/5.0.0/share/clang/clang-format.py<cr>
 
 autocmd Filetype python map <C-K> :call Autopep8()<cr>
 autocmd Filetype python imap <C-K> <c-o>:call Autopep8()<cr>
+autocmd Filetype python set tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 let g:clang_include_fixer_path="/Users/jon/DEV/LLVM/release-ninja/bin/clang-include-fixer"
 noremap <Leader>ci :pyf /Users/jon/DEV/LLVM/src/tools/clang/tools/extra/include-fixer/tool/clang-include-fixer.py<cr>
@@ -145,7 +146,7 @@ map <silent> <C-H> :YcmCompleter GoToInclude<cr>
 
 "let g:ycm_confirm_extra_conf = 0
 let g:ycm_auto_trigger = 1
-let g:ycm_path_to_python_interpreter="/usr/local/bin/python"
+let g:ycm_server_python_interpreter = "/usr/local/bin/python2.7"
 let g:ycm_seed_identifiers_with_syntax = 1 "auto-complete on language syntax
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
